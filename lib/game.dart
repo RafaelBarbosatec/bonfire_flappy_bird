@@ -35,16 +35,7 @@ class _GameState extends State<Game> {
       maxHeight,
     );
     return BonfireWidget(
-      map: WorldMap(
-        [
-          TileModel(
-            x: sizeGame.x,
-            y: sizeGame.y,
-            width: 1,
-            height: 1,
-          )
-        ],
-      ),
+      map: WorldMap.empty(size: sizeGame),
       player: Bird(
         position: (sizeGame / 2.1),
       ),

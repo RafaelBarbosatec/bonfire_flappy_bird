@@ -1,7 +1,7 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flappy_bird/util/spritesheet.dart';
 
-class Pipe extends GameDecoration {
+class Pipe extends GameDecoration with FlipRender {
   static const pipeHeight = 320.0;
   static const pipeWidth = 52.0;
   final bool inverted;
@@ -11,17 +11,8 @@ class Pipe extends GameDecoration {
   }) : super.withSprite(
           size: Vector2(pipeWidth, pipeHeight),
           sprite: Spritesheet.pipe,
-        );
-  @override
-  void render(Canvas canvas) {
-    if (inverted) {
-      canvas.save();
-      _doCanvasFlip(canvas);
-      super.render(canvas);
-      canvas.restore();
-    } else {
-      super.render(canvas);
-    }
+        ) {
+    flipRenderVertically = inverted;
   }
 
   @override
