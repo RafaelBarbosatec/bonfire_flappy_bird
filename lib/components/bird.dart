@@ -27,7 +27,6 @@ class Bird extends PlatformPlayer with HandleForces, TapGesture {
   @override
   void onTapDownScreen(GestureEvent event) {
     jump(force: true, jumpSpeed: 160);
-
     super.onTapDownScreen(event);
   }
 
@@ -40,9 +39,7 @@ class Bird extends PlatformPlayer with HandleForces, TapGesture {
   }
 
   @override
-  void onTap() {
-    // TODO: implement onTap
-  }
+  void onTap() {}
 
   @override
   Future<void> onLoad() {

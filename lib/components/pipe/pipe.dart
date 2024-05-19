@@ -25,13 +25,4 @@ class Pipe extends GameDecoration with FlipRender {
     );
     return super.onLoad();
   }
-
-  void _doCanvasFlip(Canvas canvas) {
-    canvas.translate(center.x, center.y);
-    canvas.scale(
-      1,
-      -1,
-    );
-    canvas.translate(-center.x, -center.y);
-  }
 }
