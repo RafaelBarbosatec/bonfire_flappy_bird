@@ -14,7 +14,7 @@ class PipeLineController extends GameComponent with ChangeNotifier {
   void update(double dt) {
     if (checkInterval('AddsPipe', currentInterval, dt)) {
       double offset = Random().nextInt(100).toDouble() + -50;
-      double offsetx = Random().nextInt(50).toDouble() + -25;
+      double offsetx = 10 + Random().nextInt(50).toDouble();
       gameRef.add(
         PipeLine(
           speed: speed,

@@ -39,6 +39,9 @@ class _GameState extends State<Game> {
       player: Bird(
         position: (sizeGame / 2.1),
       ),
+      playerControllers: [
+        Keyboard(),
+      ],
       background: ParallaxBackground(speed: speed),
       components: [
         _pipeLineController,

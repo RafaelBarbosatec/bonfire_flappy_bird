@@ -5,6 +5,7 @@ import 'package:flappy_bird/components/pipe/pipe_line.dart';
 import 'package:flappy_bird/components/pipe/pipe_line_controller.dart';
 import 'package:flappy_bird/util/spritesheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Bird extends PlatformPlayer with HandleForces, TapGesture {
   Vector2? _initialPosition;
@@ -25,9 +26,27 @@ class Bird extends PlatformPlayer with HandleForces, TapGesture {
   }
 
   @override
+  void onJoystickAction(JoystickActionEvent event) {
+    if (event.id == LogicalKeyboardKey.space &&
+        event.event == ActionEvent.DOWN) {
+      doJump();
+    }
+    super.onJoystickAction(event);
+  }
+
+  @override
+  void onJoystickChangeDirectional(JoystickDirectionalEvent event) {
+    // TODO: disable directional
+  }
+
+  @override
   void onTapDownScreen(GestureEvent event) {
-    jump(force: true, jumpSpeed: 160);
+    doJump();
     super.onTapDownScreen(event);
+  }
+
+  void doJump() async {
+    jump(force: true, jumpSpeed: 160);
   }
 
   final graus90 = 1.0472;
@@ -43,10 +62,12 @@ class Bird extends PlatformPlayer with HandleForces, TapGesture {
 
   @override
   Future<void> onLoad() {
-    add(RectangleHitbox(
-      size: Vector2.all(24),
-      position: Vector2(5, 0),
-    ));
+    add(
+      RectangleHitbox(
+        size: Vector2.all(24),
+        position: Vector2(5, 0),
+      ),
+    );
     return super.onLoad();
   }
 
@@ -74,6 +95,7 @@ class Bird extends PlatformPlayer with HandleForces, TapGesture {
   void _resetGame() {
     gameRef.query<PipeLineController>().first.reset();
     gameRef.query<PipeLine>().forEach((element) => element.removeFromParent());
+    setZeroVelocity();
     position = _initialPosition!.clone();
     gameRef.resumeEngine();
     Navigator.pop(context);
